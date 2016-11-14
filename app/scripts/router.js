@@ -1,3 +1,5 @@
+var Backbone = require('backbone');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Backbone = require('backbone');
+
+var setupParse = require('./parseUtilities').setupParse;
