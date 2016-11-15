@@ -4,8 +4,8 @@ function BaseLayout(props){
 
   return (
     <div>
-      <div className="container">
-        <header>
+      <header>
+        <div className="container">
           <ul class="nav nav-pills" id="topNav">
             <li role="presentation"><a href="#">Sign in &amp; Sign up</a></li>
             <li role="presentation"><a href="#">Newsletter</a></li>
@@ -21,8 +21,28 @@ function BaseLayout(props){
               <p class="navbar-text"><a href="#" class="navbar-link">Contact</a></p>
             </div>
           </nav>
-        </header>
-      </div>
-    </div>
+        </div>
+      </header>
+
+      <div className="container">
+       <div className="row">
+         {props.children}
+       </div>
+     </div>
+
+     <div className="container">
+         <hr />
+         <footer>
+             <div className="row">
+                 <div className="col-lg-12">
+                     <p>© 2016 Gluten Free Greenville</p>
+                 </div>
+             </div>
+         </footer>
+
+     </div>
+   </div>
   )
 }
+
+module.exports = BaseLayout;
