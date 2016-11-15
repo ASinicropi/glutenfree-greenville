@@ -23,24 +23,27 @@ var User = Backbone.Model.extend({
         }
       }
     });
-  }, {
-    login: function(username, password, callbackObj){
-      $.post('/login/', {username: username, password: password}).then(function(response){
-        var user = new User(response);
-        user.auth();
-        localStorage.setItem('user', JSON.stringify(user.toJSON()));
-        callbackObj.success(user, response);
-      });
-    },
-    current: function(){
-      var userData = localStorage.getItem('user');
+  },
 
-      if(!userData || !JSON.parse(userData).token){
-        return undefined;
-      }
+}, {
+  login: function(username, password, callbackObj){
+    //callbackObj.success and callbackObj.error
+    $.post('/login/', {username: username, password: password}).then(function(response){
+      var user = new User(response);
+      user.auth();
+      localStorage.setItem('user', JSON.stringify(user.toJSON()));
+      callbackObj.success(user, response);
+    });
+  },
+  current: function(){
+    var userData = localStorage.getItem('user');
 
-      return new User(JSON.parse(userData));
+    if(!userData || !JSON.parse(userData).token){
+      return undefined;
     }
+
+    return new User(JSON.parse(userData));
+  }
 });
 
 var user = User.current();
