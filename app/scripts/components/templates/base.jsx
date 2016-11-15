@@ -7,7 +7,7 @@ function BaseLayout(props){
       <header>
         <div className="container">
           <ul class="nav nav-pills" id="topNav">
-            <li role="presentation"><a href="#">Sign in &amp; Sign up</a></li>
+            <li role="presentation"><a href="#">Sign In &amp; Sign Up</a></li>
             <li role="presentation"><a href="#">Newsletter</a></li>
             <li role="presentation"><a href="#">Contact Us</a></li>
           </ul>
