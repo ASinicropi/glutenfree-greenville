@@ -1,7 +1,6 @@
 var Backbone = require('backbone');
 
 function parseHeaders(appId, apiKey, sessionId){
-  console.log(sessionId);
   $.ajaxSetup({
     beforeSend: function(xhr){
       xhr.setRequestHeader('X-Parse-Application-Id', appId);

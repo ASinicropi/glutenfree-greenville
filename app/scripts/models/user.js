@@ -1,43 +1,44 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
-var router = require('../router');
 
-var parseHeaders = require('../parseUtilities').parseHeaders;
+var parseHeaders = require('../parseUtilities.js').parseHeaders;
+var ParseModel = require('./parseModels.js').ParseModel;
 
-var ParseModel = Backbone.Model.extend({
+var User = ParseModel.extend({
+  defaults: {
+    'name': '',
+    'email': '',
+    'password': '',
+    'username': ''
+  },
   idAttribute: 'objectId',
-  save: function(key, val, options){
-    delete this.attributes.createdAt;
-    delete this.attributes.updatedAt;
+  urlRoot: 'https://sinicropi.herokuapp.com/users',
 
-    return Backbone.Model.prototype.save.apply(this, arguments);
+  login: function(username, password){
+    var url = this.urlRoot + 'login?username=' + encodeURI(username) + '&password=' + encodeURI(password);
+    var self = this;
+
+    $.ajax(url).then(function(response){
+      localStorage.setItem('sessionToken', response.sessionToken);
+      localStorage.setItem('userSession', JSON.stringify(response));
+      localStorage.setItem('userID', response.objectId);
+      localStorage.setItem('name', response.name);
+      router.navigate('', {trigger: true});
+
+      parseHeaders('ASinicropi', 'apollo', response.sessionToken);
+    });
+  },
+  signUp: function(){
+    var self = this;
+
+    this.save().then(function(data){
+      self.set('password', '')
+      localStorage.setItem('user', JSON.stringify(self.toJSON()));
+      router.navigate('account/', {trigger: true});
+    });
   }
 });
 
-var ParseCollection = Backbone.Collection.extend({
-  whereClause: {field: '', className: '', objectId: ''},
-
-  parseWhere: function(field, className, objectId){
-    this.whereClause = {
-      field: field,
-      className: className,
-      objectId: objectId,
-      '__type': 'Pointer'
-    };
-    return this;
-  },
-  url: function(){
-    var url = this.baseUrl;
-
-    if(this.whereClause.field){
-          var field = this.whereClause.field;
-          delete this.whereClause.field;
-          url += '?where={"' + field + '":' + JSON.stringify(this.whereClause) + '}';
-        }
-
-    return url;
-  },
-  parse: function(data){
-    return data.results;
-  }
-});
+module.exports = {
+  User: User
+};
