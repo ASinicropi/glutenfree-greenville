@@ -6,7 +6,6 @@ var ParseModel = require('./parseModels.js').ParseModel;
 
 var User = ParseModel.extend({
   defaults: {
-    'name': '',
     'email': '',
     'password': '',
     'username': ''
@@ -22,7 +21,6 @@ var User = ParseModel.extend({
       localStorage.setItem('sessionToken', response.sessionToken);
       localStorage.setItem('userSession', JSON.stringify(response));
       localStorage.setItem('userID', response.objectId);
-      localStorage.setItem('name', response.name);
       router.navigate('', {trigger: true});
 
       parseHeaders('ASinicropi', 'apollo', response.sessionToken);
@@ -34,7 +32,7 @@ var User = ParseModel.extend({
     this.save().then(function(data){
       self.set('password', '')
       localStorage.setItem('user', JSON.stringify(self.toJSON()));
-      router.navigate('account/', {trigger: true});
+      router.navigate('account/register', {trigger: true});
     });
   }
 });

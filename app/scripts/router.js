@@ -5,12 +5,13 @@ var ReactDOM = require('react-dom');
 var parseHeaders = require('./parseUtilities.js').parseHeaders;
 
 var UserContainer = require('./components/accounts.jsx').UserContainer;
+var NewUserContainer = require('./components/newUser.jsx').NewUserContainer;
 var MainContainer = require('./components/main.jsx').MainContainer;
 var DirectoryContainer = require('./components/directory.jsx').DirectoryContainer;
 var DirectoryDetailContainer = require('./components/directoryDetail.jsx').DirectoryDetailContainer;
 var BlogContainer = require('./components/blog.jsx').BlogContainer;
 var BlogDetailContainer = require('./components/blogDetail.jsx').BlogDetailContainer;
-var AboutTemplate = require('./templates/about/base.jsx').AboutTemplate;
+var AboutTemplate = require('.components/templates/about/base.jsx').AboutTemplate;
 var ContactContainer = require('./components/contact.jsx').ContactContainer;
 
 var AppRouter = Backbone.Router.extend({
@@ -21,6 +22,7 @@ var AppRouter = Backbone.Router.extend({
     'blog/': 'blogList',
     'blog/:id/': 'blogDetail',
     'account/': 'account',
+    'account/register': 'accountNew',
     'about/': 'about',
     'contact/': 'contact'
   },
@@ -48,16 +50,24 @@ var AppRouter = Backbone.Router.extend({
   blogList: function(blogId){
     ReactDOM.render(
       React.createElement(BlogContainer, {blogId: blogId}),
+      document.getElementById('app')
     );
   },
   blogDetail: function(blogId){
     ReactDOM.render(
       React.createElement(BlogDetailContainer, {blogId: blogId}),
+      document.getElementById('app')
     );
   },
   account: function(){
     ReactDOM.render(
       React.createElement(UserContainer),
+      document.getElementById('app')
+    );
+  },
+  accountNew: function(){
+    ReactDOM.render(
+      React.createElement(NewUserContainer),
       document.getElementById('app')
     );
   },
