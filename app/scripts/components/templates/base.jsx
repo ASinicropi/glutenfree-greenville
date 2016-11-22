@@ -43,6 +43,8 @@ function BaseLayout(props){
      </div>
    </div>
   )
-}
+};
 
-module.exports = BaseLayout;
+module.exports = {
+  BaseLayout: BaseLayout
+};

@@ -1,11 +1,8 @@
 var React = require('react');
 var Backbone = require('backbone');
-var $ = require('jquery');
 
 var User = require('../models/user.js').User;
-var BaseLayout = require('.components/templates/base.jsx');
-var parseHeaders = require('../parseUtilities.js').parseHeaders;
-require('../router').router;
+var BaseLayout = require('./templates/base.jsx');
 
 var LogInForm = React.createClass({
   getInitialState: function(){
@@ -14,15 +11,6 @@ var LogInForm = React.createClass({
       password: ''
     };
   },
-  handleLogInForm: function(e){
-    e.preventDefault();
-
-    var username = this.state.username;
-    var password = this.state.password;
-    var router = this.props.router;
-
-    this.props.logInForm(username, password, router);
-  },
   handleUsername: function(e){
     this.setState({username: e.target.value})
   },
@@ -30,11 +18,21 @@ var LogInForm = React.createClass({
     this.setState({password: e.target.value})
   },
   handleSubmit: function(e){
+    e.preventDefault();
 
+    var username = this.state.username;
+    var password = this.state.password;
+
+    this.props.logIn(username, password);
+    this.setState({username: '', password: ''});
   },
   newUser: function(e){
     e.preventDefault();
     this.props.router.navigate('account/register', {trigger: true});
+  },
+  currentUser: function(e){
+    e.preventDefault();
+    this.props.router.navigate('', {trigger: true});
   },
   render: function(){
     return (
@@ -52,7 +50,7 @@ var LogInForm = React.createClass({
           </div>
 
           <div>
-            <button id="login-button" className="btn" type="submit">Log In</button>
+            <button onClick={this.currentUser} id="login-button" className="btn" type="submit">Log In</button>
             <span>I don't have an account.</span>
             <button onClick={this.newUser} id="newuser-button" className="btn" type="submit">Create New Account</button>
           </div>
@@ -74,13 +72,11 @@ var LoginContainer = React.createClass({
   },
   render: function(){
     return (
-      <div className="container">
-        <BaseLayout>
-          <div className="row">
-            <LogIn logIn={this.logIn} router={this.props.router}/>
-          </div>
-        </BaseLayout>
-      </div>
+      <BaseLayout>
+        <div className="row">
+          <LogIn logIn={this.logIn} router={this.props.router}/>
+        </div>
+      </BaseLayout>
     )
   }
 });

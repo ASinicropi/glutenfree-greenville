@@ -1,7 +1,7 @@
-var $ = require('jquery');
+var $ = window.jQuery = window.$ = require('jquery');
 var Backbone = require('backbone');
-
-require('./router');
+require('bootstrap-sass/assets/javascripts/bootstrap.min.js');
+require('./router.js');
 
 $(function(){
   Backbone.history.start();
