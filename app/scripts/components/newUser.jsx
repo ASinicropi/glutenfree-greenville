@@ -5,7 +5,7 @@ var Backbone = require('backbone');
 var User = require('../models/user.js').User;
 var BaseLayout = require('./templates/base.jsx');
 
-var SignUpformForm = React.createClass({
+var SignUpForm = React.createClass({
   getInitialState: function(){
     return {
       name: '',
@@ -66,7 +66,7 @@ var SignUpformForm = React.createClass({
             <label htmlFor="Password1">Password:</label>
             <input onChange={this.handlePassword} value={this.state.password} type="password" className="form-control" id="Password1" placeholder="Password"/>
           </div>
-          <button type="submit" className="btn btn-default">Sign Up</button>
+          <button type="submit" className="btn btn-default">Sign Up!</button>
         </form>
       </div>
     )
