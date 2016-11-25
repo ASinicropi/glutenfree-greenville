@@ -12,3 +12,8 @@ var Recipe = ParseModel.extend({
 var RecipeCollection = ParseCollection.extend({
 
 });
+
+module.exports = {
+  Recipe: Recipe,
+  RecipeCollection: RecipeCollection
+};

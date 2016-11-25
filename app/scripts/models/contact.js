@@ -8,3 +8,12 @@ var parseHeaders = require('./parseUtilities.js').parseHeaders;
 var ContactForm = ParseModel.extend({
 
 });
+
+var ContactFormCollection = ParseCollection.extend({
+
+});
+
+module.exports = {
+  ContactForm: ContactForm,
+  ContactFormCollection: ContactFormCollection
+};
