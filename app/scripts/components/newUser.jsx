@@ -5,6 +5,8 @@ var Backbone = require('backbone');
 var User = require('../models/user.js').User;
 var BaseLayout = require('./templates/base.jsx');
 
+require('../router');
+
 var SignUpForm = React.createClass({
   getInitialState: function(){
     return {
@@ -41,11 +43,12 @@ var SignUpForm = React.createClass({
    var email = this.state.email;
    var username = this.state.username;
    var password = this.state.password;
-   var router = this.state.router
 
    this.props.signUpNewUser(name, email, username, password);
+   this.setState({name: '', email: '', username: '', password: ''});
   },
   render: function(){
+
     return (
       <div className="col-md-6 col-md-offset-4">
         <h2>Create your accout here!</h2>
@@ -79,21 +82,23 @@ var NewUserContainer = React.createClass({
       user: new User()
     }
   },
-  signUpNewUser: function(email, username, password, router){
+
+  signUpNewUser: function(name, email, username, password){
     this.state.user.set({name: name, email: email, username: username, password: password});
-    this.state.user.signUpNewUser(router)
-  },
-  render: function(){
-    return (
-      <div className="container">
-        <BaseLayout>
-          <div className="row">
-            <SignUpForm signUpNewUser={this.signUpNewUser} router={this.props.router}/>
-          </div>
-        </BaseLayout>
-      </div>
-    )
-  }
+    this.state.user.signUp();
+    },
+
+    render: function(){
+      return (
+        <div className="container">
+          <BaseLayout>
+            <div className="row">
+              <SignUpForm signUpNewUser={this.signUp}/>
+            </div>
+          </BaseLayout>
+        </div>
+        )
+    }
 });
 
 module.exports = {
