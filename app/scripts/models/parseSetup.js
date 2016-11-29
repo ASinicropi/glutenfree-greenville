@@ -2,7 +2,8 @@ var Backbone = require('backbone');
 
 var ParseModel = Backbone.Model.extend({
   idAttribute: 'objectId',
-  setPointer: function(className, objectId){
+
+  toPointer: function(className, objectId){
     var pointerObject = {
       '_type': 'Pointer',
       className: className,
@@ -11,21 +12,18 @@ var ParseModel = Backbone.Model.extend({
 
     return pointerObject;
   },
-  setFile: function(fileName, fileUrl){
-    var fileObject = {
-      '_type': 'File',
-      name: fileName,
-      url: fileUrl
-    };
 
-    return fileObject;
+  save: function(key, val, options){
+    delete this.attributes.createdAt;
+    delete this.attributes.updatedAt;
+
+    return Backbone.Model.prototype.save.apply(this.arguments);
   }
 });
 
 var ParseCollection = Backbone.Collection.extend({
-  parse: function(data){
-    return data.results;
-  },
+  whereClause: {field: '', className: '', objectId: ''},
+
   parseWhere: function(field, className, objectId){
     this.whereClause = {
       field: field,
@@ -35,6 +33,7 @@ var ParseCollection = Backbone.Collection.extend({
     };
     return this;
   },
+
   url: function(){
     var url = this.baseUrl;
 
@@ -45,7 +44,11 @@ var ParseCollection = Backbone.Collection.extend({
     }
 
     return url;
-  }
+  },
+  
+  parse: function(data){
+    return data.results;
+  },
 });
 
 module.exports = {

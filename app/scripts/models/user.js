@@ -1,12 +1,10 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
-var router = require('../router');
 
 var ParseModel = require('./parseSetup').ParseModel;
 var ParseCollection = require('./parseSetup').ParseCollection;
-var FileModel = require('./file').FileModel;
 
-var parseHeaders = require('../parseUtilities.js').parseHeaders;
+var parseHeaders = require('../parseUtilities').parseHeaders;
 
 var User = ParseModel.extend({
   defaults: {
@@ -17,37 +15,50 @@ var User = ParseModel.extend({
   },
   idAttribute: 'objectId',
   urlRoot: 'https://sinicropi.herokuapp.com/users',
-  login: function(username, password, callback){
+  baseurl: 'https://sinicropi.herokuapp.com/',
+
+  logIn: function(username, password, callback){
+
+    var url = this.baseurl + 'login?username=' + username + '&password=' + encodeURI(password);
     var self = this;
-    var url = 'https://sinicropi.herokuapp.com/' + 'login?username=' + encodeURI(username) + '&password=' + encodeURI(password);
 
     $.ajax(url).then(function(response){
-      localStorage.setItem('sessionToken', response.sessionToken);
-      localStorage.setItem('userSession', JSON.stringify(response));
-      localStorage.setItem('userID', response.objectId);
-      localStorage.setItem('username', response.username);
+      localStorage.set('sessionToken', response.sessionToken);
+      localStorage.set('user', JSON.stringify(response));
+      localStorage.set('username', response.username);
+      localStorage.set('objectId', response.objectId);
+      
+      parseHeaders('ASinicropi', 'slumber', this.get('sessionToken'));
+        return this;
+      },
+    })
 
-      parseHeaders('ASinicropi', 'apollo', response.sessionToken);
 
-      callback(response);
+      user.auth();
+
+      localStorage.setItem('user', JSON.stringify(user.toJSON()));
+
+      callback(user);
     });
-  },
-  signUp: function(callback){
-    var self = this;
-    var url = 'https://sinicropi.herokuapp.com/' + 'login?username=' + encodeURI(username) + '&password=' + encodeURI(password);
-    $.post(url, {
-      'name': this.get('name'),
-      'email': this.get('email'),
-      'username': this.get('username'),
-      'password': this.get('password')
-    }).then(function(){
-    self.login(self.get('username'), self.get('password'), callback);
-  });
-},
-},{
-  logout: function(){
-    localStorage.clear();
-  }
+ },
+
+ signUp: function(username, password, callback){
+
+   var user = new User();
+   url = this.baseUrl + 'users';
+
+   user.save().then(function(){
+     user.auth();
+     localStorage.setItem('user', JSON.stringify(self.toJSON()));
+
+     callback(user);
+   });
+ },
+ current: function(){
+   var user = new User(JSON.parse(localStorage.getItem('user')));
+
+   return user;
+ }
 });
 
 module.exports = {

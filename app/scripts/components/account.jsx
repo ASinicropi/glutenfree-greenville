@@ -1,7 +1,7 @@
 var React = require('react');
 var Backbone = require('backbone');
-
 var User = require('../models/user.js').User;
+
 var BaseLayout = require('./templates/base.jsx');
 
 var LogInForm = React.createClass({
@@ -11,51 +11,48 @@ var LogInForm = React.createClass({
       password: ''
     };
   },
-  handleUsername: function(e){
-    this.setState({username: e.target.value})
-  },
-  handlePassword: function(e){
-    this.setState({password: e.target.value})
-  },
-  handleSubmit: function(e){
+  handleUsernameInput: function(e){
     e.preventDefault();
 
-    var username = this.state.username;
-    var password = this.state.password;
+    this.setState({username: e.target.value})
+  },
+  handlePasswordInput: function(e){
+    e.preventDefault();
 
-    this.props.logIn(username, password);
-    this.setState({username: '', password: ''});
+    this.setState({password: e.target.value})
   },
   newUser: function(e){
     e.preventDefault();
-    this.props.router.navigate('account/register', {trigger: true});
+
+    Backbone.history.navigate('account/register', {trigger: true});
   },
-  currentUser: function(e){
+  handleLogIn: function(e){
     e.preventDefault();
-    this.props.router.navigate('', {trigger: true});
+
+    User.logIn(this.state.username, this.state.password, function(){
+      Backbone.history.navigate('directory/', {trigger: true});
+    });
   },
+
   render: function(){
     return (
-      <div className="col-md-6 col-md-offset-4">
-        <h2>Login Here!</h2>
-        <form onSubmit={this.handleLogInForm} id="login">
-          <div className="form-group">
-            <label htmlFor="username-login">Username:</label>
-            <input onChange={this.handleUsername} value={this.state.username} className="form-control" name="username" id="username-login" type="username" placeholder="username"/>
-          </div>
+      <form onSubmit={this.handleLogIn} id="login">
+        <div className="form-group">
+          <label htmlFor="username-login">Username:</label>
+          <input onChange={this.handleUsernameInput} value={this.state.username} className="form-control" name="username" id="username-login" type="username" placeholder="username"/>
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="password-login">Password:</label>
-            <input onChange={this.handlePassword} value={this.state.password} className="form-control" name="password" id="password-login" type="password" placeholder="password"/>
-          </div>
+        <div className="form-group">
+          <label htmlFor="password-login">Password:</label>
+          <input onChange={this.handlePasswordInput} value={this.state.password} className="form-control" name="password" id="password-login" type="password" placeholder="password"/>
+        </div>
 
-          <div>
-            <button onClick={this.currentUser} id="login-button" className="btn" type="submit">Log In</button>
-            <span>I don't have an account.</span>
-            <button onClick={this.newUser} id="newuser-button" className="btn" type="submit">Create New Account</button>
+        <div className="button-holder">
+          <input onSubmit={this.handleLogIn} className="btn btn-primary" type="submit" value="Log In!"/>
+          <span>I don't have an account.</span>
+          <button onClick={this.newUser} className="btn btn-primary">Create an account!</button>
           </div>
-        </form>
-      </div>
+      </form>
     );
   }
 });
@@ -66,17 +63,22 @@ var LoginContainer = React.createClass({
       user: new User()
     }
   },
-  logIn: function(username, password, router){
+  logIn: function(username, password){
     this.state.user.set({username: username, password: password});
-    this.state.user.logIn(username, password, router)
+    this.state.user.logIn(username, password)
   },
   render: function(){
     return (
-      <BaseLayout>
-        <div className="row">
-          <LogIn logIn={this.logIn} router={this.props.router}/>
-        </div>
-      </BaseLayout>
+      <div className="container">
+        <BaseLayout>
+          <div className="row">
+            <h2>Login Here!</h2>
+
+            <LogInForm logIn={this.logIn}/>
+
+          </div>
+        </BaseLayout>
+      </div>
     )
   }
 });

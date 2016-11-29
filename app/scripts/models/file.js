@@ -1,11 +1,16 @@
 var Backbone = require('backbone');
 
-var FileModel = Backbone.Model.extend({
+var ParseModel = require('./parseSetup').ParseModel;
+
+var parseHeaders = require('../parseUtilities').parseHeaders;
+
+var FileModel = ParseModel.extend({
   defaults: {
     name: 'default.jpg'
   },
   urlRoot: function(){
     var url = 'https://sinicropi.herokuapp.com/files/'
+
     return url + encodeURIComponent(this.get('name'));
   },
   save: function(attributes, options){
@@ -17,11 +22,13 @@ var FileModel = Backbone.Model.extend({
     var image = this.get('data');
 
     options.data = image;
+
     options.beforeSend = function(request) {
       request.setRequestHeader("X-Parse-Application-Id", 'ASinicropi');
       request.setRequestHeader("X-Parse-REST-API-Key", 'apollo');
       request.setRequestHeader("Content-Type", image.type);
     };
+
     options.processData = false;
     options.contentType = false;
 
