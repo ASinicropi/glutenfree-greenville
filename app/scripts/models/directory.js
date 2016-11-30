@@ -10,17 +10,24 @@ var Restaurant = ParseModel.extend({
     id: '',
     name: '',
     image_url: '',
+    rating_img_url: '',
     url: '',
     phone: '',
     address: '',
     city: '',
     state: '',
     zip: '',
-    hours: '',
+    is_closed: '',
     categories: [],
   },
 
-  urlRoot: 'https://sinicropi.herokuapp.com/classes/Directory'
+  urlRoot: 'https://sinicropi.herokuapp.com/classes/Directory',
+
+  userAuth: function(){
+    parseHeaders('ASinicropi', 'slumber', this.get('sessionToken'));
+    return this;
+  },
+
 });
 
 var RestaurantCollection = ParseCollection.extend({

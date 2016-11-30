@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 
+var FileModel = require('./file').FileModel;
 var ParseModel = require('./parseSetup').ParseModel;
 var ParseCollection = require('./parseSetup').ParseCollection;
 var parseHeaders = require('../parseUtilities').parseHeaders;

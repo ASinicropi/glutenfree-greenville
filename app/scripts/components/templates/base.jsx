@@ -6,11 +6,11 @@ function BaseLayout(props){
     <div>
       <header>
         <div className="container">
-          <ul className="nav nav-pills" id="topNav">
-            <li role="presentation"><a href="#">Sign In &amp; Sign Up</a></li>
-            <li role="presentation"><a href="#">Newsletter</a></li>
-            <li role="presentation"><a href="#">Contact Us</a></li>
-          </ul>
+          <div className="nav nav-pills" id="topNav">
+            <span class="label label-primary"><a href="#">Sign In &amp; Sign Up</a></span>
+            <span class="label label-primary"><a href="#">Newsletter</a></span>
+            <span class="label label-primary"><a href="#">Contact Us</a></span>
+          </div>
 
           <nav className="navbar navbar-default">
             <div className="navbar-header">

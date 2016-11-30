@@ -5,6 +5,22 @@ var FileModel = require('../models/file.js').File;
 
 var BaseLayout = require('./templates/base.jsx').BaseLayout;
 
+var PictureComponent = React.createClass({
+  getInitialState: function(){
+    return {
+      newUserPic: ''
+    }
+  },
+
+   render: function(){
+     return (
+       <form>
+
+       </form>
+     )
+   }
+});
+
 var SignUpForm = React.createClass({
   getInitialState: function(){
     return {
@@ -53,6 +69,10 @@ var SignUpForm = React.createClass({
 
     return (
       <form onSubmit={this.handleSignUp} id="signup">
+        <div className ="form-group">
+          <label htmlForfor="InputFile">Image upload:</label>
+          <input type="InputFile" id="file"/>
+        </div>
         <div className="form-group">
           <label htmlFor="Name">Name:</label>
           <input onChange={this.handleNameInput} value={this.state.name} type="name" className="form-control" id="Name" placeholder="Name"/>
