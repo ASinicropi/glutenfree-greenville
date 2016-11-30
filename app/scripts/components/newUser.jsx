@@ -2,16 +2,15 @@ var React = require('react');
 var Backbone = require('backbone');
 var User = require('../models/user.js').User;
 
-var BaseLayout = require('./templates/base.jsx');
+var BaseLayout = require('./templates/base.jsx').BaseLayout;
 
 var SignUpForm = React.createClass({
-
   getInitialState: function(){
     return {
       name: '',
       email: '',
       username: '',
-      password: ''
+      password: '',
    };
  },
  handleNameInput: function(e){
@@ -42,14 +41,12 @@ var SignUpForm = React.createClass({
     var username = this.state.username;
     var password = this.state.password;
 
-   this.props.signUp(name, email, username, password);
+   this.props.handleSignUp(name, email, username, password, function(){
+     Backbone.history.navigate('account/', {trigger: true});
+   });
+
    this.setState({name: '', email: '', username: '', password: ''});
   },
-  returnToLogIn: function(e){
-    e.preventDefault();
-
-    Backbone.history.navigate('account/', {trigger: true});
-  }
 
   render: function(){
 
@@ -75,7 +72,7 @@ var SignUpForm = React.createClass({
           <input onChange={this.handlePasswordInput} value={this.state.password} type="password" className="form-control" id="Password1" placeholder="Password"/>
         </div>
 
-        <button onClick={this.returnToLogIn} className="btn btn-primary">Sign Up!</button>
+        <button id="newUserButton" className="btn btn-primary" type="submit">Sign Up!</button>
       </form>
     )
   }
@@ -89,22 +86,21 @@ var NewUserContainer = React.createClass({
   },
 
   handleSignUp: function(name, email, username, password){
-    this.state.user.set({name: name, email: email, username: username, password: password});
     this.state.user.signUp(name, email, username, password);
-    },
+  },
 
-    render: function(){
-      return (
-        <div className="container">
-          <BaseLayout>
-            <div className="row">
-              <h2>Create your accout here!</h2>
-              <SignUpForm signUp={this.signUp}/>
-            </div>
-          </BaseLayout>
-        </div>
-        )
-    }
+  render: function(){
+    return (
+      <div className="container">
+        <BaseLayout>
+          <div className="row">
+            <h2>Create your accout here!</h2>
+            <SignUpForm handleSignUp={this.handleSignUp}/>
+          </div>
+        </BaseLayout>
+      </div>
+      )
+  }
 });
 
 module.exports = {

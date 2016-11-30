@@ -7,17 +7,18 @@ var ParseModel = Backbone.Model.extend({
     var pointerObject = {
       '_type': 'Pointer',
       className: className,
-      objectId: objectId
+      objectId: objectId,
     };
 
     return pointerObject;
   },
 
-  save: function(key, val, options){
+  save: function(attributes, options){
+
     delete this.attributes.createdAt;
     delete this.attributes.updatedAt;
 
-    return Backbone.Model.prototype.save.apply(this.arguments);
+    return Backbone.Model.prototype.save.apply(this, arguments);
   }
 });
 
@@ -27,10 +28,11 @@ var ParseCollection = Backbone.Collection.extend({
   parseWhere: function(field, className, objectId){
     this.whereClause = {
       field: field,
-      '__type': 'Pointer',
       className: className,
-      objectId: objectId
+      objectId: objectId,
+      '__type': 'Pointer',
     };
+
     return this;
   },
 
@@ -45,7 +47,7 @@ var ParseCollection = Backbone.Collection.extend({
 
     return url;
   },
-  
+
   parse: function(data){
     return data.results;
   },

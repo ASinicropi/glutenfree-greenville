@@ -2,13 +2,13 @@ var React = require('react');
 var Backbone = require('backbone');
 var User = require('../models/user.js').User;
 
-var BaseLayout = require('./templates/base.jsx');
+var BaseLayout = require('./templates/base.jsx').BaseLayout;
 
 var LogInForm = React.createClass({
   getInitialState: function(){
     return {
       username: '',
-      password: ''
+      password: '',
     };
   },
   handleUsernameInput: function(e){
@@ -29,44 +29,50 @@ var LogInForm = React.createClass({
   handleLogIn: function(e){
     e.preventDefault();
 
-    User.logIn(this.state.username, this.state.password, function(){
-      Backbone.history.navigate('directory/', {trigger: true});
-    });
-  },
+    var username = this.state.username;
+    var password = this.state.password;
 
-  render: function(){
-    return (
-      <form onSubmit={this.handleLogIn} id="login">
-        <div className="form-group">
-          <label htmlFor="username-login">Username:</label>
-          <input onChange={this.handleUsernameInput} value={this.state.username} className="form-control" name="username" id="username-login" type="username" placeholder="username"/>
-        </div>
+    this.props.handleLogIn(username, password);
 
-        <div className="form-group">
-          <label htmlFor="password-login">Password:</label>
-          <input onChange={this.handlePasswordInput} value={this.state.password} className="form-control" name="password" id="password-login" type="password" placeholder="password"/>
-        </div>
+    this.setState({username: '', password: ''});
+    },
 
-        <div className="button-holder">
-          <input onSubmit={this.handleLogIn} className="btn btn-primary" type="submit" value="Log In!"/>
-          <span>I don't have an account.</span>
-          <button onClick={this.newUser} className="btn btn-primary">Create an account!</button>
+    render: function(){
+      return (
+        <form onSubmit={this.handleLogIn} id="login">
+          <div className="form-group">
+            <label htmlFor="username-login">Username:</label>
+            <input onChange={this.handleUsernameInput} value={this.state.username} className="form-control" name="username" id="username-login" type="username" placeholder="username"/>
           </div>
-      </form>
-    );
-  }
+
+          <div className="form-group">
+            <label htmlFor="password-login">Password:</label>
+            <input onChange={this.handlePasswordInput} value={this.state.password} className="form-control" name="password" id="password-login" type="password" placeholder="password"/>
+          </div>
+
+          <div className="button-holder">
+            <button id="logInButton" className="btn btn-primary" type="submit">Log In!</button>
+            <span>I don't have an account.</span>
+            <button onClick={this.newUser} className="btn btn-primary">Create an account!</button>
+          </div>
+        </form>
+      )
+    }
 });
 
-var LoginContainer = React.createClass({
+var UserContainer = React.createClass({
   getInitialState: function(){
     return {
       user: new User()
     }
   },
-  logIn: function(username, password){
-    this.state.user.set({username: username, password: password});
-    this.state.user.logIn(username, password)
+
+  handleLogIn: function(username, password){
+    this.state.user.logIn(username, password, function(){
+        Backbone.history.navigate('directory/', {trigger: true});
+    });
   },
+
   render: function(){
     return (
       <div className="container">
@@ -74,7 +80,7 @@ var LoginContainer = React.createClass({
           <div className="row">
             <h2>Login Here!</h2>
 
-            <LogInForm logIn={this.logIn}/>
+            <LogInForm handleLogIn={this.handleLogIn}/>
 
           </div>
         </BaseLayout>
@@ -84,5 +90,5 @@ var LoginContainer = React.createClass({
 });
 
 module.exports = {
-  LoginContainer: LoginContainer
+  UserContainer: UserContainer
 };

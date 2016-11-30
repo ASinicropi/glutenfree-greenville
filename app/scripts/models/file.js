@@ -1,18 +1,16 @@
 var Backbone = require('backbone');
 
-var ParseModel = require('./parseSetup').ParseModel;
-
-var parseHeaders = require('../parseUtilities').parseHeaders;
-
-var FileModel = ParseModel.extend({
+var FileModel = Backbone.Model.extend({
   defaults: {
     name: 'default.jpg'
   },
+  idAttribute: 'objectId',
   urlRoot: function(){
-    var url = 'https://sinicropi.herokuapp.com/files/'
+    var url = 'https://sinicropi.herokuapp.com/files/';
 
     return url + encodeURIComponent(this.get('name'));
   },
+
   save: function(attributes, options){
     options = options || {};
     attributes = attributes || {};
@@ -21,19 +19,24 @@ var FileModel = ParseModel.extend({
 
     var image = this.get('data');
 
+    if (!image) {
+      throw 'Please attach a file.'
+    }
+
     options.data = image;
 
-    options.beforeSend = function(request) {
-      request.setRequestHeader("X-Parse-Application-Id", 'ASinicropi');
-      request.setRequestHeader("X-Parse-REST-API-Key", 'apollo');
+    options.beforeSend = function(request){
+      request.setRequestHeader("X-Parse-Application-Id", "zugzwang");
+      request.setRequestHeader("X-Parse-Rest-API-Key", "tosche station");
       request.setRequestHeader("Content-Type", image.type);
     };
 
     options.processData = false;
+
     options.contentType = false;
 
     return Backbone.Model.prototype.save.call(this, attributes, options);
-  },
+  }
 });
 
 module.exports = {

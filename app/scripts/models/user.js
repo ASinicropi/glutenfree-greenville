@@ -3,7 +3,6 @@ var Backbone = require('backbone');
 
 var ParseModel = require('./parseSetup').ParseModel;
 var ParseCollection = require('./parseSetup').ParseCollection;
-
 var parseHeaders = require('../parseUtilities').parseHeaders;
 
 var User = ParseModel.extend({
@@ -11,54 +10,50 @@ var User = ParseModel.extend({
     'name': '',
     'email': '',
     'password': '',
-    'username': ''
+    'username': '',
   },
   idAttribute: 'objectId',
   urlRoot: 'https://sinicropi.herokuapp.com/users',
   baseurl: 'https://sinicropi.herokuapp.com/',
 
+  userAuth: function(){
+    parseHeaders('ASinicropi', 'slumber', this.get('sessionToken'));
+    return this;
+  },
   logIn: function(username, password, callback){
-
-    var url = this.baseurl + 'login?username=' + username + '&password=' + encodeURI(password);
     var self = this;
+    var url = this.baseurl + 'login?username=' + username + '&password=' + encodeURI(password);
+    this.set({username: username, password: password});
 
     $.ajax(url).then(function(response){
-      localStorage.set('sessionToken', response.sessionToken);
-      localStorage.set('user', JSON.stringify(response));
-      localStorage.set('username', response.username);
-      localStorage.set('objectId', response.objectId);
-      
-      parseHeaders('ASinicropi', 'slumber', this.get('sessionToken'));
-        return this;
-      },
-    })
+      localStorage.setItem('sessionToken', response.sessionToken);
+      localStorage.setItem('user', JSON.stringify(response));
+      localStorage.setItem('username', response.username);
+      localStorage.setItem('objectId', response.objectId);
 
+      parseHeaders('ASinicropi', 'slumber', response.sessionToken);
 
-      user.auth();
-
-      localStorage.setItem('user', JSON.stringify(user.toJSON()));
-
-      callback(user);
+      callback(response);
     });
- },
+  },
 
- signUp: function(username, password, callback){
+  signUp: function(name, email, username, password, callback){
+   var self = this;
+   var url = this.baseUrl + 'users';
+   this.set({name: name, email: email, username: username, password: password});
 
-   var user = new User();
-   url = this.baseUrl + 'users';
-
-   user.save().then(function(){
-     user.auth();
+   this.save().then(function(data){
      localStorage.setItem('user', JSON.stringify(self.toJSON()));
 
-     callback(user);
+     callback(self);
    });
- },
- current: function(){
+  },
+
+  current: function(){
    var user = new User(JSON.parse(localStorage.getItem('user')));
 
    return user;
- }
+  }
 });
 
 module.exports = {

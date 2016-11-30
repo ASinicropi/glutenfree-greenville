@@ -1,38 +1,35 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 
-var ParseModel = require('./parseSetup.js').ParseModel;
-var ParseCollection = require('./parseSetup.js').ParseCollection;
-var parseHeaders = require('../parseUtilities.js').parseHeaders;
+var ParseModel = require('./parseSetup').ParseModel;
+var ParseCollection = require('./parseSetup').ParseCollection;
+var parseHeaders = require('../parseUtilities').parseHeaders;
 
-var Directory = ParseModel.extend({
-  //idAttribute: '_id',
+var Restaurant = ParseModel.extend({
   default: {
     id: '',
     name: '',
     image_url: '',
     url: '',
-    price: '',
     phone: '',
     address: '',
     city: '',
     state: '',
     zip: '',
     hours: '',
-    categories: ''
+    categories: [],
   },
 
-  urlRoot: 'https://sinicropi.herokuapp.com/classes/Directory/'
-
+  urlRoot: 'https://sinicropi.herokuapp.com/classes/Directory'
 });
 
-var DirectoryCollection = ParseCollection.extend({
-  model: Directory,
-  baseUrl: 'https://sinicropi.herokuapp.com/classes/Directory/'
+var RestaurantCollection = ParseCollection.extend({
 
+  model: Restaurant,
+  baseUrl: 'https://sinicropi.herokuapp.com/classes/Directory/'
 });
 
 module.exports = {
-  Directory: Directory,
-  DirectoryCollection: DirectoryCollection
+  Restaurant: Restaurant,
+  RestaurantCollection: RestaurantCollection
 };
