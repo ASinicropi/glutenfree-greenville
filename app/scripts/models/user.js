@@ -31,8 +31,6 @@ var User = ParseModel.extend({
       localStorage.setItem('username', response.username);
       localStorage.setItem('objectId', response.objectId);
 
-      parseHeaders('ASinicropi', 'slumber', response.sessionToken);
-
       callback(response);
     });
   },
