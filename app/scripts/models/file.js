@@ -7,7 +7,6 @@ var FileModel = Backbone.Model.extend({
   idAttribute: 'objectId',
   urlRoot: function(){
     var url = 'https://sinicropi.herokuapp.com/files/';
-
     return url + encodeURIComponent(this.get('name'));
   },
 
@@ -19,15 +18,11 @@ var FileModel = Backbone.Model.extend({
 
     var image = this.get('data');
 
-    if (!image) {
-      throw 'Please attach a file.'
-    }
-
     options.data = image;
 
     options.beforeSend = function(request){
-      request.setRequestHeader("X-Parse-Application-Id", "zugzwang");
-      request.setRequestHeader("X-Parse-Rest-API-Key", "tosche station");
+      request.setRequestHeader("X-Parse-Application-Id", "ASinicropi");
+      request.setRequestHeader("X-Parse-Rest-API-Key", "slumber");
       request.setRequestHeader("Content-Type", image.type);
     };
 

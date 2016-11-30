@@ -1,6 +1,7 @@
 var React = require('react');
 var Backbone = require('backbone');
 var User = require('../models/user.js').User;
+var FileModel = require('../models/file.js').File;
 
 var BaseLayout = require('./templates/base.jsx').BaseLayout;
 
