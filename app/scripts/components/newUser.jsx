@@ -1,25 +1,8 @@
 var React = require('react');
 var Backbone = require('backbone');
 var User = require('../models/user.js').User;
-var FileModel = require('../models/file.js').File;
 
 var BaseLayout = require('./templates/base.jsx').BaseLayout;
-
-var PictureComponent = React.createClass({
-  getInitialState: function(){
-    return {
-      newUserPic: ''
-    }
-  },
-
-   render: function(){
-     return (
-       <form>
-
-       </form>
-     )
-   }
-});
 
 var SignUpForm = React.createClass({
   getInitialState: function(){

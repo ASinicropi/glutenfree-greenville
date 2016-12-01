@@ -1,20 +1,16 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 
-var yelpData = Backbone.Model.extend({
-
-  url: 'https://yelp-proxy-server1.herokuapp.com/search?term=gluten-free&location=Greenville%20SC'
-
+var YelpSearch = Backbone.Model.extend({
+  urlRoot: 'https://yelp-proxy-server1.herokuapp.com/search?term=Gluten+Free&location=Greenville+SC'
 });
 
-var yelpCollection = Backbone.collection.extend({
-
-  model: yelpData,
-  url: 'https://yelp-proxy-server1.herokuapp.com/search'
-
+var YelpSeachCollection = Backbone.Collection.extend({
+  model: YelpSearch,
+  url: 'https://yelp-proxy-server1.herokuapp.com/search?term=Gluten+Free&location=Greenville+SC'
 });
 
 module.exports = {
-  yelpData: yelpData,
-  yelpCollection: yelpCollection
+  YelpSearch: YelpSearch,
+  YelpSeachCollection: YelpSeachCollection
 };

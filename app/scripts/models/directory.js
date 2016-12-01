@@ -5,38 +5,18 @@ var ParseModel = require('./parseSetup').ParseModel;
 var ParseCollection = require('./parseSetup').ParseCollection;
 var parseHeaders = require('../parseUtilities').parseHeaders;
 
-var Restaurant = ParseModel.extend({
-  default: {
-    id: '',
-    name: '',
-    image_url: '',
-    rating_img_url: '',
-    url: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: '',
-    is_closed: '',
-    categories: [],
-  },
+var Business = ParseModel.extend({
 
-  urlRoot: 'https://sinicropi.herokuapp.com/classes/Directory',
-
-  userAuth: function(){
-    parseHeaders('ASinicropi', 'slumber', this.get('sessionToken'));
-    return this;
-  },
-
+  urlRoot: 'https://sinicropi.herokuapp.com/classes/Directory'
 });
 
-var RestaurantCollection = ParseCollection.extend({
+var BusinessCollection = ParseCollection.extend({
 
-  model: Restaurant,
+  model: Business,
   baseUrl: 'https://sinicropi.herokuapp.com/classes/Directory/'
 });
 
 module.exports = {
-  Restaurant: Restaurant,
-  RestaurantCollection: RestaurantCollection
+  Business: Business,
+  BusinessCollection: BusinessCollection
 };

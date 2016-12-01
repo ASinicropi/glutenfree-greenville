@@ -8,7 +8,7 @@ var parseHeaders = require('./parseUtilities').parseHeaders;
 var UserContainer = require('./components/account.jsx').UserContainer;
 var NewUserContainer = require('./components/newUser.jsx').NewUserContainer;
 var HomeContainer = require('./components/home.jsx').HomeContainer;
-var DirectoryContainer = require('./components/directory.jsx').DirectoryContainer;
+var DirectoryListContainer = require('./components/directory.jsx').DirectoryListContainer;
 var DirectoryDetailContainer = require('./components/directoryDetail.jsx').DirectoryDetailContainer;
 //var BlogContainer = require('./components/blog.jsx').BlogContainer;
 //var BlogDetailContainer = require('./components/blogDetail.jsx').BlogDetailContainer;
@@ -42,14 +42,14 @@ var AppRouter = Backbone.Router.extend({
 
   restaurantList: function(restaurantId){
     ReactDOM.render(
-      React.createElement(DirectoryContainer, {router: this, restaurantId: restaurantId}),
+      React.createElement(DirectoryListContainer, {router: this, restaurantId: restaurantId}),
       document.getElementById('app')
     );
   },
 
   restaurantDetail: function(restaurantId){
     ReactDOM.render(
-      React.createElement(DirectoryContainer, {router: this, restaurantId: restaurantId}),
+      React.createElement(DirectoryListContainer, {router: this, restaurantId: restaurantId}),
       document.getElementById('app')
     );
   },
