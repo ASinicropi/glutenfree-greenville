@@ -41,19 +41,19 @@ var LogInForm = React.createClass({
       return (
         <form onSubmit={this.handleLogIn} id="login">
           <div className="form-group">
-            <label htmlFor="username-login">Username:</label>
-            <input onChange={this.handleUsernameInput} value={this.state.username} className="form-control" name="username" id="username-login" type="username" placeholder="username"/>
+            <input onChange={this.handleUsernameInput} value={this.state.username} className="form-control" name="username" id="username-login" type="username" placeholder="Username"/>
           </div>
 
           <div className="form-group">
-            <label htmlFor="password-login">Password:</label>
-            <input onChange={this.handlePasswordInput} value={this.state.password} className="form-control" name="password" id="password-login" type="password" placeholder="password"/>
+            <input onChange={this.handlePasswordInput} value={this.state.password} className="form-control" name="password" id="password-login" type="password" placeholder="Password"/>
           </div>
 
-          <div className="button-holder">
-            <button id="logInButton" className="btn btn-primary" type="submit">Log In!</button>
-            <span>I don't have an account.</span>
-            <button onClick={this.newUser} className="btn btn-primary">Create an account!</button>
+          <div>
+            <button id="logInButton" className="btn btn-primary btn-sm" type="submit">Log In&#33;</button>
+            <div id="link-signup">
+              <span id="account-signup">Don't have an account&#63;</span>
+              <a href="#" onClick={this.newUser} id="account-link">&nbsp;Create New Account Here&#33;</a>
+            </div>
           </div>
         </form>
       )
@@ -77,11 +77,14 @@ var UserContainer = React.createClass({
     return (
       <div className="container">
         <BaseLayout>
-          <div className="row">
-            <h2>Login Here!</h2>
+          <div className="col-md-6 col-md-offset-3">
+            <div className="row" id="loginScreen">
+              <div>
+                <h2 id="loginHeader">Login Here&#33;</h2>
 
-            <LogInForm handleLogIn={this.handleLogIn}/>
-
+                <LogInForm handleLogIn={this.handleLogIn}/>
+              </div>
+            </div>
           </div>
         </BaseLayout>
       </div>

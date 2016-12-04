@@ -7,24 +7,23 @@ var parseHeaders = require('./parseUtilities').parseHeaders;
 
 var UserContainer = require('./components/account.jsx').UserContainer;
 var NewUserContainer = require('./components/newUser.jsx').NewUserContainer;
-var HomeContainer = require('./components/home.jsx').HomeContainer;
+var HomeContainer = require('./components/templates/home/base.jsx').HomeContainer;
 var DirectoryListContainer = require('./components/directory.jsx').DirectoryListContainer;
 var DirectoryDetailContainer = require('./components/directoryDetail.jsx').DirectoryDetailContainer;
-//var BlogContainer = require('./components/blog.jsx').BlogContainer;
-//var BlogDetailContainer = require('./components/blogDetail.jsx').BlogDetailContainer;
-var BaseLayOutTemplate = require('./components/templates/base.jsx').BaseLayOutTemplate;
-var AboutTemplate = require('./components/templates/about/base.jsx').AboutTemplate;
-var ContactContainer = require('./components/contact.jsx').ContactContainer;
+var BlogContainer = require('./components/blog.jsx').BlogContainer;
+var BlogDetailContainer = require('./components/blogDetail.jsx').BlogDetailContainer;
+var AboutContainer = require('./components/templates/about/base.jsx').AboutContainer;
+var MessageContainer = require('./components/contact.jsx').MessageContainer;
 
 var AppRouter = Backbone.Router.extend({
   routes: {
     '': 'home',
-    'account/register': 'accountNew',
     'account/': 'account',
+    'account/register': 'accountNew',
     'directory/:id/': 'restaurantDetail',
     'directory/': 'restaurantList',
-    //'blog/:id/': 'blogDetail',
-    //'blog/': 'blogList',
+    'blog/:id/': 'blogDetail',
+    'blog/': 'blogList',
     'about/': 'about',
     'contact/': 'contact',
   },
@@ -35,7 +34,21 @@ var AppRouter = Backbone.Router.extend({
 
   home: function(){
     ReactDOM.render(
-      React.createElement(HomeContainer, {router: this}),
+     React.createElement(HomeContainer, {router: this}),
+      document.getElementById('app')
+    );
+   },
+
+  account: function(){
+    ReactDOM.render(
+      React.createElement(UserContainer, {router: this}),
+      document.getElementById('app')
+    );
+  },
+
+  accountNew: function(){
+    ReactDOM.render(
+      React.createElement(NewUserContainer, {router: this}),
       document.getElementById('app')
     );
   },
@@ -68,30 +81,16 @@ var AppRouter = Backbone.Router.extend({
     //);
   //},
 
-  account: function(){
-    ReactDOM.render(
-      React.createElement(UserContainer, {router: this}),
-      document.getElementById('app')
-    );
-  },
-
-  accountNew: function(){
-    ReactDOM.render(
-      React.createElement(NewUserContainer, {router: this}),
-      document.getElementById('app')
-    );
-  },
-
   about: function(){
     ReactDOM.render(
-      React.createElement(AboutTemplate, {router: this}),
+      React.createElement(AboutContainer, {router: this}),
       document.getElementById('app')
     );
   },
 
   contact: function(){
     ReactDOM.render(
-      React.createElement(ContactContainer, {router: this}),
+      React.createElement(MessageContainer, {router: this}),
       document.getElementById('app')
     );
   },

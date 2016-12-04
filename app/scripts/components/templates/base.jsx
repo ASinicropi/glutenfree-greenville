@@ -7,18 +7,28 @@ function BaseLayout(props){
       <header>
         <div className="container">
           <div className="nav nav-pills" id="topNav">
-            <span class="label label-primary"><a href="#">Sign In &amp; Sign Up</a></span>
-            <span class="label label-primary"><a href="#">Newsletter</a></span>
-            <span class="label label-primary"><a href="#">Contact Us</a></span>
+            <a href={'#account/'}className="btn btn-primary btn-xs" role="button">&nbsp;&nbsp;Sign In &amp; Sign Up&nbsp;&nbsp;</a>
+            <span>&nbsp;</span>
+            <button className="btn btn-primary btn-xs">&nbsp;&nbsp;Newsletter&nbsp;&nbsp;</button>
+            <span>&nbsp;</span>
+            <a href={'#contact/'}className="btn btn-primary btn-xs" role="button">&nbsp;&nbsp;Contact Us&nbsp;&nbsp;</a>
+          </div>
+
+          <div className="row" id="logo">
+            <div className="col-md-9 col-md-offset-4">
+              <img src="images/gluten-free-greenville-logo.png" alt="logo"/>
+            </div>
           </div>
 
           <nav className="navbar navbar-default">
-            <div className="navbar-header">
-              <p className="navbar-text"><a href="#" className="navbar-link">Home</a></p>
-              <p className="navbar-text"><a href="#" className="navbar-link">Directory</a></p>
-              <p className="navbar-text"><a href="#" className="navbar-link">Blog</a></p>
-              <p className="navbar-text"><a href="#" className="navbar-link">About</a></p>
-              <p className="navbar-text"><a href="#" className="navbar-link">Contact</a></p>
+            <div className="col-md-7 col-md-offset-4">
+              <ul className="nav navbar-nav" id="navMain"role="navigation">
+                <li role="navigation"><a href={''}>Home</a></li>
+                <li role="navigation"><a href={'#directory/'}>Directory</a></li>
+                    <li role="navigation"><a href={'#blog/'}>Blog</a></li>
+                <li role="navigation"><a href="#about/">About</a></li>
+                <li role="navigation"><a href="#contact/">Contact</a></li>
+              </ul>
             </div>
           </nav>
         </div>
@@ -41,7 +51,7 @@ function BaseLayout(props){
          </footer>
 
      </div>
-   </div>
+    </div>
   )
 };
 

@@ -15,3 +15,222 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 img {
   max-width: 100%;
 }
+
+#topNav {
+  float: right;
+}
+
+#logo {
+  text-align: center;
+  padding: 10px;
+  width: 70%;
+}
+
+#navMain {
+  display: inline-block;
+  text-align: center;
+}
+
+#myCarousel {
+  padding: 0 10px 30px 10px;
+  margin-top: 30px 0px 0px;
+}
+
+#myCarousel .carousel-control {
+  background: none;
+  color: #222;
+  font-size: 2.3em;
+  text-shadow: none;
+  margin-top: 30px;
+}
+
+#myCarousel .carousel-control.left {
+  left: -12px;
+}
+
+#myCarousel .carousel-control.right {
+  right: -12px !important;
+}
+
+#myCarousel .carousel-indicators {
+  right: 50%;
+  top: auto;
+  bottom: 0px;
+  margin-right: -19px;
+}
+
+#myCarousel .carousel-indicators li {
+  background: #c0c0c0;
+}
+
+#myCarousel .carousel-indicators .active {
+  background: #333333;
+}
+
+#directoryPanel {
+  text-align: center;
+  -webkit-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  -moz-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  box-shadow: 10px 10px 14px 0px rgba(175,238,238,1);
+}
+
+#loginScreen {
+  border-top: 2px solid #DCDCDC;
+  border-left: 2px solid #DCDCDC;
+  -webkit-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  -moz-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  box-shadow: 10px 10px 14px 0px rgba(175,238,238,1);
+  padding: 12px;
+}
+
+#signupScreen {
+  border-top: 2px solid #DCDCDC;
+  border-left: 2px solid #DCDCDC;
+  -webkit-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  -moz-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  box-shadow: 10px 10px 14px 0px rgba(175,238,238,1);
+  padding: 12px;
+}
+
+#loginHeader {
+  text-align: center;
+  font-style: oblique;
+  font-weight: lighter;
+}
+
+#username-login {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#password-login {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#account-signup {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#account-link {
+  font-style: oblique;
+  font-weight: normal;
+  color: inherit;
+}
+
+#link-signup {
+  float: right;
+}
+
+#signupHeader {
+  text-align: center;
+  font-style: oblique;
+  font-weight: lighter;
+  padding-bottom: 5px;
+}
+
+#file-signup {
+  font-style: oblique;
+  font-weight: normal;
+  color: #333333;
+}
+
+#name-signup {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#email-signup {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#username-signup {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#password-signup {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#Newsletter {
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#About {
+  text-align: center;
+  font-style: oblique;
+  font-weight: lighter;
+}
+
+#GFG {
+  text-align: center;
+  font-style: oblique;
+  font-weight: lighter;
+}
+
+#P1{
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#P2{
+  font-style: oblique;
+  font-weight: normal;
+}
+
+#yelpName {
+  font-style: oblique;
+  font-weight: lighter;
+  display: inline;
+}
+
+#yelpRating{
+  display: inline;
+  vertical-align:middle;
+  margin-top: 5px;
+}
+
+#yelpPhone {
+  font-style: oblique;
+  font-weight: normal;
+  float: left;
+  display: inline;
+  padding-left: 20px;
+}
+
+#contactHeader {
+  text-align: center;
+  font-style: oblique;
+  font-weight: lighter;
+}
+
+#contactScreen {
+  border-top: 2px solid #DCDCDC;
+  border-left: 2px solid #DCDCDC;
+  -webkit-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  -moz-box-shadow: 10px 10px 12px 0px rgba(175,238,238,1);
+  box-shadow: 10px 10px 14px 0px rgba(175,238,238,1);
+  padding: 12px;
+}
+
+#contactButton {
+  margin-top: 3px;
+  float: right;
+}
+
+#formOne {
+  margin-bottom: 5px;
+}
+
+#formTwo {
+  margin-bottom: 5px;
+}
+
+#formThree {
+  margin-bottom: 5px;
+}

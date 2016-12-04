@@ -48,6 +48,18 @@ var User = ParseModel.extend({
    });
   },
 
+  sendMessage: function(name, email, subject, message, callback){
+    var self = this;
+    var url = this.baseUrl + 'classes/Contact';
+    this.set({name: name, email: email, subject: subject, message: message});
+
+    this.save().then(function(data){
+      localStorage.setItem('user', JSON.stringify(self.toJSON()));
+
+      callback(self);
+    });
+  },
+
   current: function(){
    var user = new User(JSON.parse(localStorage.getItem('user')));
 

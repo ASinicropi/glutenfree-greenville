@@ -52,31 +52,35 @@ var SignUpForm = React.createClass({
 
     return (
       <form onSubmit={this.handleSignUp} id="signup">
-        <div className ="form-group">
-          <label htmlForfor="InputFile">Image upload:</label>
-          <input type="InputFile" id="file"/>
-        </div>
         <div className="form-group">
-          <label htmlFor="Name">Name:</label>
-          <input onChange={this.handleNameInput} value={this.state.name} type="name" className="form-control" id="Name" placeholder="Name"/>
+          <input type="file" id="File"/>
+          <p id="file-signup" className="help-block">Please upload profile image&#33;</p>
         </div>
 
         <div className="form-group">
-          <label htmlFor="Email">Email:</label>
-          <input onChange={this.handleEmailInput} value={this.state.email} type="email" className="form-control" id="Email" placeholder="Email"/>
+          <input onChange={this.handleNameInput} value={this.state.name} type="name" className="form-control" id="name-signup" placeholder="Name"/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="Username">Username:</label>
-          <input onChange={this.handleUsernameInput} value={this.state.username} type="username" className="form-control" id="Username" placeholder="Username"/>
+          <input onChange={this.handleEmailInput} value={this.state.email} type="email" className="form-control" id="email-signup" placeholder="Email"/>
         </div>
 
         <div className="form-group">
-          <label htmlFor="Password">Password:</label>
-          <input onChange={this.handlePasswordInput} value={this.state.password} type="password" className="form-control" id="Password1" placeholder="Password"/>
+          <input onChange={this.handleUsernameInput} value={this.state.username} type="username" className="form-control" id="username-signup" placeholder="Username"/>
         </div>
 
-        <button id="newUserButton" className="btn btn-primary" type="submit">Sign Up!</button>
+        <div className="form-group">
+          <input onChange={this.handlePasswordInput} value={this.state.password} type="password" className="form-control" id="password-signup" placeholder="Password"/>
+        </div>
+
+        <div id="form-box-signup">
+          <div className="checkbox">
+            <label id="Newsletter">
+              <input type="checkbox">Sign up for Newsletter</input>
+            </label>
+          </div>
+          <button id="newUserButton" className="btn btn-primary btn-sm" type="submit">Sign Up&#33;</button>
+        </div>
       </form>
     )
   }
@@ -97,9 +101,13 @@ var NewUserContainer = React.createClass({
     return (
       <div className="container">
         <BaseLayout>
-          <div className="row">
-            <h2>Create your accout here!</h2>
-            <SignUpForm handleSignUp={this.handleSignUp}/>
+          <div className="col-md-6 col-md-offset-3">
+            <div className="row" id="signupScreen">
+              <div>
+                <h2 id="signupHeader">Create your accout here&#33;</h2>
+                <SignUpForm handleSignUp={this.handleSignUp}/>
+              </div>
+            </div>
           </div>
         </BaseLayout>
       </div>
